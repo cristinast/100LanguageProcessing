@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Reverse 文字列の逆順
+# Reverse 00文字列の逆順
 #Index method
 '''
 strA = "ahiuewihkdnlsdjih"
@@ -16,9 +16,8 @@ for i in strA:
     order.append(i)
 order.reverse() #reverse list
 print ''.join(order) #change list into string. not support python2.7
-
-#Extract 「パタトクカシーー」
 '''
+#Extract 01「パタトクカシーー」
 '''
 StrA = 'パタトクカシーー'
 
@@ -35,7 +34,7 @@ StrB += StrA[7]
 print (StrB)
 '''
 
-#Connect 「パトカー」＋「タクシー」＝「パタトクカシーー」
+#Connect 02「パトカー」＋「タクシー」＝「パタトクカシーー」
 '''
 StrA = 'パトカー'
 StrB = 'タクシー'
@@ -52,7 +51,7 @@ elif len(StrA) < len(StrB):
 print (StrC) 
 '''
 
-#Permute and Combine 円周率
+#Split and Permute 03円周率
 '''
 import re #get re.split
 StrA = 'Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics.'
@@ -64,5 +63,32 @@ StrC = sorted(StrB, key=str.lower) # sort by alphabet
 #StrB.sort()
 print (StrC)
 '''
+
+
+#Split and Extract and Permute 04元素記号
+
+import re #get re.split
+StrA = 'Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can.'
+StrB = re.split(r'[,. ]',StrA)
+#StrB = StrA.split() a easy to split long string into word.
+Number_first_list = [1, 5, 6, 7, 8, 9, 15, 16, 19]
+Words = {} #get a new dictionary
+
+while '' in StrB: #delete null character string
+    StrB.remove('')
+
+for Number,Word in enumerate(StrB, 1): #use enumerate to find every word.
+    if Number in Number_first_list:
+        Words[Word[0:1]] = Number #push into dictionary
+    else:
+        Words[Word[0:2]] = Number 
+ 
+print (Words)
+
+
+
+
+
+
 
 
