@@ -66,7 +66,7 @@ print (StrC)
 
 
 #Split and Extract and Permute 04元素記号
-
+'''
 import re #get re.split
 StrA = 'Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can.'
 StrB = re.split(r'[,. ]',StrA)
@@ -84,6 +84,33 @@ for Number,Word in enumerate(StrB, 1): #use enumerate to find every word.
         Words[Word[0:2]] = Number 
  
 print (Words)
+'''
+
+# implement n-gram function 05 n-gram
+'''
+import re #get re.split
+def n_gram(sentence,n):
+    output_text = []
+    for i in range(len(sentence) - 1):
+        output_text.append(sentence[i:i+n])
+
+    return output_text
+
+input_text = 'I am an NLPer'
+process_text = re.split(r'[,. ]',input_text)
+while '' in process_text:
+    process_text.remove('')
+
+print (u'this is word bi-gram:')
+print (n_gram(input_text,2))
+print (u'this is character bi-gram:')
+print (n_gram(process_text,2))
+'''
+
+# gather 06 集合
+
+        
+
 
 
 
