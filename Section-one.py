@@ -133,6 +133,9 @@ xdifference_set = list(set(xtext_output).difference(ytext_output))
 ydifference_set = list(set(ytext_output).difference(xtext_output))
 '''
 
+# generate sentence 07 テンプレートによる文生成
+def sentence(x,y,z):
+    
 
 
 
