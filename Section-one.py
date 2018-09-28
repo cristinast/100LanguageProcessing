@@ -107,9 +107,33 @@ print (u'this is character bi-gram:')
 print (n_gram(process_text,2))
 '''
 
-# gather 06 集合
+# set 06 集合
+'''
+import re
+def n_gram(sentence,n):
+    output_text = []
+    for i in range(len(sentence) - 1):
+        output_text.append(sentence[i:i+n])
+    return output_text
 
-        
+input_xtext = 'paraparaparadise'
+input_ytext = 'paragraph'
+
+xtext_output = n_gram(input_xtext,2)
+ytext_output = n_gram(input_ytext,2)
+
+#get union set 和集合
+#union_set  = [i for i in xtext_output if i in ytext_output] other way
+union_set = list(set(xtext_output).union(set(ytext_output)))
+#get intersection set 積集合
+intersection_set = list(set(xtext_output).intersection(set(ytext_output)))
+#get difference set 差集合
+#difference_set = [i for i in xtext_output if i not in ytext_output] other way
+xdifference_set = list(set(xtext_output).difference(ytext_output))
+ydifference_set = list(set(ytext_output).difference(xtext_output))
+'''
+
+
 
 
 
