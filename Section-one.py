@@ -134,7 +134,20 @@ ydifference_set = list(set(ytext_output).difference(xtext_output))
 '''
 
 # generate sentence 07 テンプレートによる文生成
+'''
 def sentence(x,y,z):
+   # my_list = [x,y,z]
+    return ("「{hour}時の{temperature}は{value}」".format(hour = x,temperature = y,value = z))
+
+x = 12
+y = '気温'
+z = 22.4
+
+print (sentence(x,y,z))
+'''
+
+# English alphabet translates to ASCII and other languages keep same 08 暗号文
+def cipher(sentence):
     
 
 
