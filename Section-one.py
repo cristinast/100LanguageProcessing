@@ -147,8 +147,36 @@ print (sentence(x,y,z))
 '''
 
 # English alphabet translates to ASCII and other languages keep same 08 暗号文
+
+import re
 def cipher(sentence):
+    result = ''
+    for i in sentence: 
+        #if bool(re.search('[a-z]',sentence)): # judge and find English alphabet
+        if i.islower(): # judge and find English alphabet
+            result += chr(219 - ord(i))
+        else:
+            result += i
+    return result
+
+
+
+input_text = input('Please enter text which need to transform:')
+
+
+cipher_text = cipher(input_text)
+print (cipher_text)
+#print (cipher(back))
+if cipher(cipher_text) != input_text: #get it back and test if it's equal to former text
+    print (u'which have some problems!')
+else:
+    print (cipher(cipher_text))
+     
+
+
+
     
+
 
 
 
