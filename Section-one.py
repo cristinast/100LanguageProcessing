@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
+
+#第1章: 準備運動
+
 # Reverse 00文字列の逆順
 #Index method
 '''
