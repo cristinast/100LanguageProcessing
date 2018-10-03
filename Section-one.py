@@ -147,7 +147,7 @@ print (sentence(x,y,z))
 '''
 
 # English alphabet translates to ASCII and other languages keep same 08 暗号文
-
+'''
 import re
 def cipher(sentence):
     result = ''
@@ -171,10 +171,37 @@ if cipher(cipher_text) != input_text: #get it back and test if it's equal to for
     print (u'which have some problems!')
 else:
     print (cipher(cipher_text))
-     
+'''
 
 
 
+#Repalce? 09 Typoglycemia
+import re
+import random
+def tyoglycemia(sentence):
+    
+    split_text = sentence.split() #?how to save english punctuation.
+    #split_text = re.split(r'[,\\. ]',sentence)
+    #split_text = re.split(r'[\\.]',sentence)
+    result_text = []
+    print(split_text)
+
+    
+    for word in split_text:
+        if len(word) <= 4:
+            result_text.append(word) 
+        else:
+            middle_text = list(word[1:-1])
+            random.shuffle(middle_text)
+            middle_text = word[0]+''.join(middle_text) + word[-1]
+            result_text.append(middle_text)
+    return ' '.join(result_text)
+                
+test_text = "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
+output_text = tyoglycemia(test_text)
+#input_text = input('Please enter text:')
+#output_text = tyoglycemia(input_text)
+print(output_text)
     
 
 
