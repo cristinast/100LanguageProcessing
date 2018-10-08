@@ -34,3 +34,15 @@ fp.close()
 
 
 #replace blank 11 タブをスペースに置換
+'''
+import os
+fp = open('hightemp.txt') #open files
+
+for line in fp:
+    str = line.replace('\t',' ').rstrip() #replace symbol form
+    print (str)
+
+fp.close()
+'''
+
+#save file 12 1列目をcol1.txtに，2列目をcol2.txtに保存
