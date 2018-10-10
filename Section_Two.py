@@ -101,6 +101,61 @@ file2 = fp2.read()
 print (file2)
 fp2.close()
 '''
+#another solution, under consideration
+'''
+import os
+fp = open('hightemp.txt','r')
+input_list = fp.readlines()
+replace_list = []
+push11 = []
+#print (input_list)
+for line in input_list:
+    process_list = line.replace('\t',' ')
+    replace_list.append(process_list)
+#print (replace_list)
 
+print(push11)
+
+with open('clo11.txt','w') as col11_file:
+    for col11 in replace_list:
+        col11_file.write(col11)
+        col11_file.write('\n')
+
+fp.close()
+'''
 
 #gather 13 col1.txtとcol2.txtをマージ
+
+import os
+#import flatten #need to verify
+fp1 = open('col1.txt','r')
+fp2 = open('col2.txt','r')
+
+list1 = []
+list2 = []
+list12 = []
+
+line1 = fp1.readline()
+line1 = line1.replace('\n','\t')
+line2 = fp2.readline()
+
+while line1:
+    list1.append(line1)
+    line1 = fp1.readline()
+    line1 = line1.replace('\n','\t')
+
+while line2:
+    list2.append(line2)
+    line2 = fp2.readline()
+
+#list12 = zip(list1,list2)
+#for i,j in zip(list1,list2):
+ #   list12.append(zip(list1,list2))
+
+print(list12)
+#with open('col12.txt','w') as col12_file:
+    #for col12 in list12:
+       # col12_file.write(col12)
+ 
+fp1.close()
+fp2.close()
