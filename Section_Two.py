@@ -125,15 +125,19 @@ fp.close()
 '''
 
 #gather 13 col1.txtとcol2.txtをマージ
-
+#implement it according to my idea. so complex.
+''' 
 import os
 #import flatten #need to verify
+
 fp1 = open('col1.txt','r')
 fp2 = open('col2.txt','r')
 
 list1 = []
 list2 = []
 list12 = []
+i = 0
+j = 0
 
 line1 = fp1.readline()
 line1 = line1.replace('\n','\t')
@@ -152,10 +156,34 @@ while line2:
 #for i,j in zip(list1,list2):
  #   list12.append(zip(list1,list2))
 
+while i < len(list1) and j < len(list2): #merge into a list
+    list12.append(list1[i])
+    list12.append(list2[j])
+    i += 1
+    j += 1
+
 print(list12)
-#with open('col12.txt','w') as col12_file:
-    #for col12 in list12:
-       # col12_file.write(col12)
+with open('col12.txt','w') as col12_file:
+    for col12 in list12:
+        col12_file.write(col12)
  
 fp1.close()
 fp2.close()
+'''
+
+#other way by Internet.
+'''
+import os
+fp1 = open('col1.txt','r')
+fp2 = open('col2.txt','r')
+
+with open('col12.txt','w') as col12_file:
+    for fp1_line,fp2_line in zip(fp1,fp2): #use function python [zip] to merge
+        col12_file.write(fp1_line.rstrip()+'\t'+fp2_line.rstrip()+'\n')
+'''
+
+
+
+
+#head print 14 先頭からN行を出力
+
