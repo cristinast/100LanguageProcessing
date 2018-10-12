@@ -185,5 +185,11 @@ with open('col12.txt','w') as col12_file:
 
 
 
-#head print 14 先頭からN行を出力
+#from head print 14 先頭からN行を出力
 
+
+
+#from tail print 15 末尾のN行を出力
+
+
+#from middle print 16 ファイルをN分割する
