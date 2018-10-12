@@ -186,8 +186,23 @@ with open('col12.txt','w') as col12_file:
 
 
 #from head print 14 先頭からN行を出力
+import os
+input_number = int(input('please input you want to print row: '))
+#list_text = []
 
+with open('hightemp.txt','r') as fp:
+    #count = len(fp.readlines())
+    #if input_number < count:
+    line = fp.readline().rstrip()
+    print (line)
+    input_number -=1
+    while input_number > 0:
+        line = fp.readline().rstrip()
+        input_number -=1
+        print(line)
+fp.close()
 
+#print (list_text)
 
 #from tail print 15 末尾のN行を出力
 
