@@ -209,6 +209,7 @@ fp.close()
 
 
 #from tail print 15 末尾のN行を出力
+'''
 import os
 list_txt = []
 input_number = int(input('please input you want to print row: '))
@@ -229,7 +230,10 @@ for inform in list_txt:
     print(inform.rstrip())
 #print(list_txt)
 fp1.close()
+'''
 
 
 
 #from middle print 16 ファイルをN分割する
+import os
+fp = open('hightemp.txt','r')
