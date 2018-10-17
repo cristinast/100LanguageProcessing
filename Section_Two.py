@@ -209,25 +209,27 @@ fp.close()
 
 
 #from tail print 15 末尾のN行を出力
-'
 import os
+list_txt = []
 input_number = int(input('please input you want to print row: '))
-fp1 = open('hightemp.txt','r')
-count = len(fp1.readlines())
-fp1.close()
-with open('hightemp.txt','r') as fp:
-    if input_number > count:
-        print ('outfiles')
-    else:
-        input_number = count - input_number
-        line = fp.readline().rstrip()
-        print (line)
-        input_number -=1
-        while input_number > 0:
-            line = fp.readline().rstrip()
-            input_number -=1
-            print(line)
+fp = open('hightemp.txt','r')
+count = len(fp.readlines())
 fp.close()
+fp1 = open('hightemp.txt','r')
+line = fp1.readlines()
+if input_number > count:
+    print ('outfiles')
+else:
+    input_number = count - input_number
+    print(input_number)
+    while input_number != count:
+        list_txt.append(line[input_number])
+        input_number += 1
+for inform in list_txt:
+    print(inform.rstrip())
+#print(list_txt)
+fp1.close()
+
 
 
 #from middle print 16 ファイルをN分割する
