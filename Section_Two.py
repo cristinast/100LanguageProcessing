@@ -237,5 +237,5 @@ fp1.close()
 #from middle print 16 ファイルをN分割する
 import os
 fp = open('hightemp.txt','r')
-
+count = len(fp.readlines())
 fp.close()
