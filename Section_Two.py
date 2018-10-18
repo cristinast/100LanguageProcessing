@@ -239,3 +239,9 @@ import os
 fp = open('hightemp.txt','r')
 count = len(fp.readlines())
 fp.close()
+input_number = int(input('please enter you want to split row: '))
+fp1 = open('hightemp.txt','r')
+line1 = fp1.readlines()
+fp1.close(
+    
+)
