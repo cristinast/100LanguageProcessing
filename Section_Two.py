@@ -255,3 +255,20 @@ else:
             print(line.rstrip())
         print('\n')
 '''
+
+
+# 17 １列目の文字列の異なり
+import os
+first_row = []
+fp = open('hightemp.txt','r')
+line = fp.readline()
+while line:
+    split_files = line.split('\t')
+    first_row.append(split_files[0])
+    line = fp.readline()
+fp.close()
+#print(first_row)
+
+result_list = list(set(first_row))#delete repeat files
+
+print(result_list)
