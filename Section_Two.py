@@ -257,7 +257,8 @@ else:
 '''
 
 
-# 17 １列目の文字列の異なり
+# delete duplicate values 17 １列目の文字列の異なり
+'''
 import os
 first_row = []
 fp = open('hightemp.txt','r')
@@ -269,6 +270,15 @@ while line:
 fp.close()
 #print(first_row)
 
-result_list = list(set(first_row))#delete repeat files
+result_list = list(set(first_row))#delete duplicate values
 
 print(result_list)
+'''
+
+
+#sort 18 各行を3コラム目の数値の降順にソート
+import os
+third_row = []
+fp = open('hightemp.txt','r')
+
+fp.close()
