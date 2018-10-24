@@ -235,13 +235,23 @@ fp1.close()
 
 
 #from middle print 16 ファイルをN分割する
+'''
 import os
+import math
+
 fp = open('hightemp.txt','r')
 count = len(fp.readlines())
 fp.close()
 input_number = int(input('please enter you want to split row: '))
 fp1 = open('hightemp.txt','r')
 line1 = fp1.readlines()
-fp1.close(
-    
-)
+fp1.close()
+if input_number > count:
+    print('outfiles')
+else:
+    print_number = math.ceil(count / input_number) #Rounded rounded by element
+    for i,file_txt in enumerate(range(0,count,print_number),1):
+        for line in line1[file_txt:file_txt + print_number]:#print from middle.
+            print(line.rstrip())
+        print('\n')
+'''
