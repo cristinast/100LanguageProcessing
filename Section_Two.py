@@ -277,8 +277,26 @@ print(result_list)
 
 
 #sort 18 各行を3コラム目の数値の降順にソート
+'''
 import os
 third_row = []
-fp = open('hightemp.txt','r')
+file_list = []
 
+
+fp = open('hightemp.txt','r')
+line = fp.readline()
+while line:
+    file_list.append(line)
+    line = fp.readline()
+#print(file_list)
+for files in file_list:
+    files = files.split('\t')
+    #print(files[2])
+    file_list = sorted(file_list,key = lambda file: float(files[2]),reverse = True)   
+
+for lines in file_list:
+    print(lines.rstrip())
 fp.close()
+'''
+
+# 19 各行の1コラム目の文字列の出現頻度を求め，出現頻度の高い順に並べる
