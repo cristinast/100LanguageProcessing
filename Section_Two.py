@@ -300,3 +300,22 @@ fp.close()
 '''
 
 # 19 各行の1コラム目の文字列の出現頻度を求め，出現頻度の高い順に並べる
+import os
+import collections
+
+fp = open('hightemp.txt','r')
+first_row = []
+#result = []
+file_list = fp.readlines()
+for line in file_list:
+    line = line.split('\t')
+    first_row.append(line[0])
+
+frequency = collections.Counter(first_row)
+
+#result.append(frequency.keys())
+for result in sorted(frequency.items(),key = lambda item: item[1],reverse = True):
+    print(result[0])
+#print (result)
+print(frequency)
+fp.close()
