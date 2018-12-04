@@ -8,7 +8,7 @@
 #read and get json files 20 JSONデータの読み込み
 import json
 
-
+'''
 #read json files
 with open('jawiki-country.json','r') as fp:
     #put json into dictionary
@@ -20,13 +20,49 @@ with open('jawiki-country.json','r') as fp:
             break
         
 fp.close()
+'''
 
 
-
+'''
 #get out of the row of goal 21 カテゴリ名を含む行を抽出
 import json
+import re
 
-with open('jawiki-country.json','r') as fp:
+def Extract_file(title):  
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
+
+Process_file = Extract_file(u"イギリス")
+
+pattern = re.compile(r'\[\[Category')
+
+for line in Process_file.split("\n"):
+    #different way to match category
+    #if re.search(r"Category:",line):
+    if pattern.match(line):
+        print (line)
+'''
 
 
-fp.close()
+#extract content of category 22. カテゴリ名の抽出
+import json
+import re
+
+def Extract_file(title):  
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
+
+Process_file = Extract_file(u"イギリス")
+
+
+
+
+
