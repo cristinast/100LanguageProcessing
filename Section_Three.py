@@ -49,6 +49,7 @@ for line in Process_file.split("\n"):
 
 
 #extract content of category 22. カテゴリ名の抽出
+'''
 import json
 import re
 
@@ -62,16 +63,19 @@ def Extract_file(title):
 
 Process_file = Extract_file(u"イギリス")
 '''
+'''
 pattern = re.compile(r"\[\[Category:(.*)\]\]")
 for line in Process_file.split("\n"):
     lines = pattern.match(line)
     if lines:
         print(lines[1])
 '''
-
+'''
 for line in Process_file.split("\n"):
-    m = re.search(r"Category:",line)
-     
+    m = re.search(r"Category:(?P<category>.+?)(\||])",line)
+    if m:
+        print(m.group("category"))
+'''  
 
 
 
