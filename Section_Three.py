@@ -72,7 +72,7 @@ for line in Process_file.split("\n"):
 '''
 '''
 for line in Process_file.split("\n"):
-    m = re.search(r"Category:(?P<category>.+?)(\||])",line)
+    m = re.search(r"Category:(?P<category>.+?)\||]",line)
     if m:
         print(m.group("category"))
 '''  
@@ -80,7 +80,25 @@ for line in Process_file.split("\n"):
 
 
 # extract section 23 セクション構造
+import json
+import re
+def Extract_file(title):
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
 
+Process_file = Extract_file(u'イギリス')
+
+for line in Process_file.split("\n"):
+    reg = re.search(r"^(?P<level>=+)(?P<section>.+?)=",line)
+    if reg:
+        level = reg.group("level").count("=")-1
+        section = reg.group("section")
+        print("{0}:{1}".format(level,section))
+            
 
 
 
