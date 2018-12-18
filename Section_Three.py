@@ -80,6 +80,7 @@ for line in Process_file.split("\n"):
 
 
 # extract section 23 セクション構造
+'''
 import json
 import re
 def Extract_file(title):
@@ -98,7 +99,16 @@ for line in Process_file.split("\n"):
         level = reg.group("level").count("=")-1
         section = reg.group("section")
         print("{0}:{1}".format(level,section))
-            
+
+'''
+
+
+
+
+
+#extract file 24 ファイル参照の抽出
+import json
+import re
 
 
 
