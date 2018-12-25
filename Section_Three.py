@@ -105,11 +105,41 @@ for line in Process_file.split("\n"):
 
 
 
-
+'''
 #extract file 24 ファイル参照の抽出
 import json
 import re
+def Extract_file(title):
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
 
+Process_file = Extract_file(u'イギリス')
+#print(Process_file)
+for line in Process_file.split("\n"):
+    m = re.search(r"ファイル:(?P<file>.+?)\|",line)
+    if m:
+        print(reg.group("file"))
+'''
+
+
+
+
+#extract basic information 25 テンプレートの抽出
+import json
+import re
+def Extract_file(title):
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
+
+Process_file = Extract_file(u'イギリス')
 
 
 
