@@ -122,12 +122,12 @@ Process_file = Extract_file(u'イギリス')
 for line in Process_file.split("\n"):
     m = re.search(r"ファイル:(?P<file>.+?)\|",line)
     if m:
-        print(reg.group("file"))
+        print(m.group("file"))
 '''
 
 
 
-
+'''
 #extract basic information 25 テンプレートの抽出
 import json
 import re
@@ -139,7 +139,22 @@ def Extract_file(title):
                 return temp['text']
     fp.close()
 
+
+info_dict = {}
 Process_file = Extract_file(u'イギリス')
+#Get out of all the basic information
+m = re.search(r"{{基礎情報[^|]+\|(?P<information>.+?)\n}}", Process_file, re.DOTALL)
+if m:
+    #print(m.group("information"))
+    for line in m.group("information").split("\n|"):
+        key,value = re.split(r"\s=\s",line,maxsplit=1)
+        info_dict[key] = value
+
+for key,value in info_dict.items():
+    print("{key}:{value}".format(key = key,value = value))   
+'''
+
+
 
 
 
