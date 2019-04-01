@@ -147,41 +147,51 @@ m = re.search(r"{{基礎情報[^|]+\|(?P<information>.+?)\n}}", Process_file, re
 if m:
     #print(m.group("information"))
     for line in m.group("information").split("\n|"):
-        key,value = re.split(r"\s*=\s*",line,maxsplit=1)
+        key,value = re.split(r"\s=\s",line,maxsplit=1)
         info_dict[key] = value
 
 for key,value in info_dict.items():
     print("{key}:{value}".format(key = key,value = value))   
+
+
 '''
-
-
 #Remove emphasize font 26 強調マークアップの除去
 import json
 import re
+
 def Extract_file(title):
     with open('jawiki-country.json','r') as fp:
         for line in fp:
             temp = json.loads(line)
             if title == temp['title']:
-                return temp['title']
+                return temp['text']
     fp.close()
 
-def Remove_emphasis(string):
-    emphasis = re.compile(r"''({2,5})(.*?)(\1)''",re.MULTILINE + re.VERBOSE)
-    return emphasis.sub(r"\2",string)
+def Remove_emphasis(text):
+    """強調マークアップを除去"""
+    return re.sub(r"'{2,}", "", text)
+
 
 info_dict = {}
 Process_file = Extract_file(u'イギリス')
-m = re.search(r"{{基礎情報[^|]+\|(?P<information>.+?)\n}}",Process_file,re.DOTALL)
-
-
+#Get out of all the basic information
+m = re.search(r"{{基礎情報[^|]+\|(?P<information>.+?)\n}}", Process_file, re.DOTALL)
 if m:
-    for line in m.group("information").split("\n"):
-        key,value = re.split(r"\s*=\s*",line,maxsplit=1)
+    #print(m.group("information"))
+    for line in m.group("information").split("\n|"):
+        key,value = re.split(r"\s=\s",line,maxsplit=1)
+        value = Remove_emphasis(value)
         info_dict[key] = value
 
+for key,value in info_dict.items():
+    print("{key}:{value}".format(key = key,value = value))
+'''
 result_dict = {}
 for k,v in info_dict.items():
     v = Remove_emphasis(v)
     result_dict[k] = v
-    print("{key}:{value}",format(key = k,value = v))
+
+for key,value in result_dict.items():
+    print("{key}:{value}".format(key = key,value = value))  
+
+'''
