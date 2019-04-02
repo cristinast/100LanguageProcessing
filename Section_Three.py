@@ -153,6 +153,9 @@ if m:
 for key,value in info_dict.items():
     print("{key}:{value}".format(key = key,value = value))   
 
+'''
+
+
 
 '''
 #Remove emphasize font 26 強調マークアップの除去
@@ -179,12 +182,17 @@ m = re.search(r"{{基礎情報[^|]+\|(?P<information>.+?)\n}}", Process_file, re
 if m:
     #print(m.group("information"))
     for line in m.group("information").split("\n|"):
+        #cut and remove,save space
         key,value = re.split(r"\s=\s",line,maxsplit=1)
         value = Remove_emphasis(value)
         info_dict[key] = value
 
 for key,value in info_dict.items():
     print("{key}:{value}".format(key = key,value = value))
+
+'''
+
+#use other dictionary to change
 '''
 result_dict = {}
 for k,v in info_dict.items():
@@ -195,3 +203,6 @@ for key,value in result_dict.items():
     print("{key}:{value}".format(key = key,value = value))  
 
 '''
+
+
+#Remove link of text 27 内部リンクの除去
