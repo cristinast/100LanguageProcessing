@@ -172,6 +172,7 @@ def Extract_file(title):
 
 def Remove_emphasis(text):
     """強調マークアップを除去"""
+    #re.sub(r"1","2",text) find 1 in text and use to 2 to change
     return re.sub(r"'{2,}", "", text)
 
 
@@ -206,3 +207,53 @@ for key,value in result_dict.items():
 
 
 #Remove link of text 27 内部リンクの除去
+import json
+import re
+
+
+
+def Extract_file(title):
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
+
+
+
+def Remove_emphasis(text):
+    return re.sub(r"'{2,}", "", text)
+
+def Remove_link(text):
+     return re.sub(r"\[\[([^]]+)\]\]", lambda m: m.group(1).split("|")[-1], text)
+
+
+def Process_text(text):
+    info_dict = {}
+    m = re.search(r"{{基礎情報[^|]+\|(?P<information>.+?)\n}}", text,re.DOTALL) 
+    if m:
+        for line in m.group("information").split("\n|"):
+            key,value = re.split(r"\s=\s",line,maxsplit = 1)
+            info_dict[key] = value
+    return info_dict
+
+
+
+Get_text = Extract_file(u'イギリス')
+
+Base_info = Process_text(Get_text)
+
+Result_info = {}
+
+for key,value in Base_info.items():
+    value = Remove_emphasis(value)
+    value = Remove_link(value)
+    Result_info[key] = value
+    print("{key}:{value}".format(key = key,value = value))
+
+
+
+
+
+
