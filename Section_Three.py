@@ -282,6 +282,7 @@ for key,value in Base_info.items():
 '''
 
 
+'''
 #Remaove mediawiki markup 28 MediaWikiマークアップの除去
 import json
 import re
@@ -363,6 +364,118 @@ for key,value in Base_info.items():
     Result_info[key] = value
     print("('{key}' : '{value}')".format(key = key,value = value))
 
+'''
+#Get the picture of country flag 29 国旗画像のURLを取得する
+import json
+import re
+from urllib.parse import urlencode
+from urllib import request
+import codecs
+
+def Extract_file(title):
+    with open('jawiki-country.json','r') as fp:
+        for line in fp:
+            temp = json.loads(line)
+            if title == temp['title']:
+                return temp['text']
+    fp.close()
+
+
+def Process_file(text):
+    info_dict = {}
+    m = re.search(r'{{基礎情報[^|]+\|(?P<information>.+?)\n}}',text,re.DOTALL)
+    if m:
+        for line in m.group("information").split("\n|"):
+            key,value = re.split(r"\s=\s",line,maxsplit = 1)
+            info_dict[key] = value
+    return info_dict
+
+
+def Remove_category_links(text):
+    return re.sub(r"\[\[Category:(.+?)\]\]", lambda m:m.group(1).split("|")[0],text)
+
+def Remove_emphasis(text):
+    return re.sub(r"'{2,}","",text)
+
+def Remove_internal_links(text):
+    return re.sub(r"\[\[([^]]+)\]\]", lambda m: m.group(1).split("|")[-1], text)
+
+def Remove_external_links(text):
+    return re.sub(r"\[([^]]+)\]", lambda m:m.group(1).split(" ")[-1],text)
+
+def Remove_template(text):
+    return re.sub(r"\{\{(.+?)\}\}", lambda m:m.group(1).split("|")[-1],text)
+
+def Remove_redirect(text):
+    return re.sub(r"#REDIRECT \[\[(.+?)\]\]", lambda m:m.group(1),text)
+
+def Remove_unordered_list(text):
+    return re.sub(r"^\*+\s*","",text,flags = re.MULTILINE)
+
+def Remove_ordered_list(text):
+    return re.sub(r"^#+\s*","",text,flags = re.MULTILINE)
+
+def Remove_define_list(text):
+    return re.sub(r"^(:|;)\s","",text,flags = re.MULTILINE)
+
+def Remove_html_mark(text):
+    return re.sub(r"<\/?[br|ref][^>]*?>","",text,flags = re.MULTILINE)
+
+def Remove_comment(text):
+    return re.sub(r"<!--.*?-->","",text)
+
+def Get_image(name):
+    
+
+    return flag_image_url
+
+
+
+Get_text = Extract_file(u'イギリス')
+
+
+Base_info = Process_file(Get_text)
+
+Flag_image_name = Base_info["国旗画像"]
+#print(Flag_image_name)
+
+query = urlencode({
+        "action":"query",
+        "titles":"File:{0}".format(Flag_image_name),
+        "format":"json",
+        "prop":"imageinfo",
+        "iiprop":"url", 
+    })
+
+#print(query)
+url = "https://commons.wikimedia.org/w/api.php?{0}".format(query)
+#print(url)
+    
+with request.urlopen(url) as response:
+    body = response.read()
+    data = json.loads(body.decode())
+    #print(data)
+    
+flag_image_url = list(data["query"]["pages"].values())[0]["imageinfo"][0]["url"]
+
+print(flag_image_url)
+
+Result_info = {}
+
+for key,value in Base_info.items():
+    value = Remove_category_links(value)
+    value = Remove_emphasis(value)
+    value = Remove_internal_links(value)
+    value = Remove_external_links(value)
+    value = Remove_template(value)
+    value = Remove_redirect(value)
+    value = Remove_unordered_list(value)
+    value = Remove_ordered_list(value)
+    value = Remove_define_list(value)
+    value = Remove_html_mark(value)
+    value = Remove_comment(value)
+    Result_info[key] = value
+    #print("('{key}' : '{value}')".format(key = key,value = value))
 
 
 
