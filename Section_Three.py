@@ -475,7 +475,7 @@ for key,value in Base_info.items():
     value = Remove_html_mark(value)
     value = Remove_comment(value)
     Result_info[key] = value
-    print("('{key}' : '{value}')".format(key = key,value = value))
+    #print("('{key}' : '{value}')".format(key = key,value = value))
 
 
 
