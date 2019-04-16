@@ -5,7 +5,7 @@
 # so u need to install it and configure it in your laptop
 
 # Read Morphological Analysis result 30 形態素解析結果の読み込み
-
+'''
 import MeCab
 import sys
 #mecab = MeCab.Tagger('-Owakati') #-Ochasen
@@ -49,5 +49,51 @@ for line in sectences:
     print(line)
 
 #print(sectences)
+'''
 
 
+#Get verb word 31 動詞
+import MeCab
+import sys
+
+def Parse_file():
+    with open('neko.txt','r') as fp:
+        with open ('neko.txt.mecab','w') as result:
+            mecab = MeCab.Tagger()
+            result.write(mecab.parse(fp.read()))
+        result.close()
+    fp.close()
+
+
+Parse_file()
+sentence  = []
+sentences = []
+
+with open('neko.txt.mecab','r') as nekomecab:
+    for morpheme in nekomecab.readlines():
+        surface = morpheme.split('\t')
+        if len(surface) >= 2:
+            result = surface[1].split(',')
+            word = {
+                'surface': surface[0],
+                'base': result[6],
+                'pos': result[0],
+                'pos1': result[1]
+            }
+            sentence.append(word)
+            if (word['pos1'] == '句点'):
+                sentences.append(sentence)
+                sentence = []
+nekomecab.close()
+
+result = []
+
+for sentence in sentences:
+    for morpheme in sentence:
+        if morpheme['pos'] == '動詞':
+            result.append(morpheme['surface'])
+            #print (result)
+
+
+for m in result:
+    print(m)
