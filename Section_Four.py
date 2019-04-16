@@ -32,8 +32,8 @@ with open('neko.txt.mecab','r') as nekomecab:
             #use , to change
             result = surface[1].split(',')
             word = {
-                'surface' : surface[0],
-                'base' : result[6],
+                'surface' : surface[0],#kinds of word
+                'base' : result[6],#prototype
                 'pos' : result[0],
                 'pos1' : result[1]
             } 
@@ -51,8 +51,9 @@ for line in sectences:
 #print(sectences)
 '''
 
+'''
 
-#Get verb word 31 動詞
+#Extract verb  31 動詞
 import MeCab
 import sys
 
@@ -97,3 +98,7 @@ for sentence in sentences:
 
 for m in result:
     print(m)
+'''
+
+#Extract Verb prototype 32 動詞の原形
+
