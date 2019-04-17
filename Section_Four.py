@@ -147,3 +147,8 @@ for sentence in sentences:
 
 #for m in result:
   #  print(m) 
+
+
+# Extract noun 33 サ変名詞
+import MeCab
+import sys
