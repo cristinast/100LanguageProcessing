@@ -16,34 +16,31 @@ def Parse_text():
         with open('neko.txt.mecab','w') as result:
             mecab = MeCab.Tagger()
             result.write(mecab.parse(fp.read()))
-        result.close()
-    fp.close()
+        
+    
 
 Parse_text()
 sectence  = []
 sectences  = []
 with open('neko.txt.mecab','r') as nekomecab:
-    for morpheme in nekomecab.readlines():
-        #print(morpheme)
-        #cut result by tap
+    for morpheme in nekomecab.read().split('\n'):
         surface = morpheme.split('\t')
-        #there is only tap in this line
-        if len(surface) >= 2:
-            #use , to change
+        if len(surface) == 2:
             result = surface[1].split(',')
             word = {
                 'surface' : surface[0],
-                'base' : result[6],#prototype
-                'pos' : result[0],#kinds of word
-                'pos1' : result[1]#punctuation
-            } 
-            sectence.append(word)
-            
-            # is this sentence finshed
-            if(word['pos1'] == '句点'):# or word['pos1'] == '空白':
-                sectences.append(sectence)
-                sectence = []
-nekomecab.close()
+                'base' : result[6],
+                'pos' : result[0],
+                'pos1': result[1]
+            }
+            sentence.append(word)
+            if word['pos1'] == '句点':
+                sentences.append(sentence)
+                sentence = []
+            elif len(surface) == 1:
+                pass
+            else: RuntimeError
+
 
 for line in sectences:
     print(line)
@@ -62,8 +59,8 @@ def Parse_file():
         with open ('neko.txt.mecab','w') as result:
             mecab = MeCab.Tagger()
             result.write(mecab.parse(fp.read()))
-        result.close()
-    fp.close()
+        
+    
 
 
 Parse_file()
@@ -71,21 +68,24 @@ sentence  = []
 sentences = []
 
 with open('neko.txt.mecab','r') as nekomecab:
-    for morpheme in nekomecab.readlines():
+    for morpheme in nekomecab.read().split('\n'):
         surface = morpheme.split('\t')
-        if len(surface) >= 2:
+        if len(surface) == 2:
             result = surface[1].split(',')
             word = {
-                'surface': surface[0],
-                'base': result[6],
-                'pos': result[0],
+                'surface' : surface[0],
+                'base' : result[6],
+                'pos' : result[0],
                 'pos1': result[1]
             }
             sentence.append(word)
-            if (word['pos1'] == '句点'):
+            if word['pos1'] == '句点':
                 sentences.append(sentence)
                 sentence = []
-nekomecab.close()
+            elif len(surface) == 1:
+                pass
+            else: RuntimeError
+
 
 result = []
 
@@ -111,8 +111,8 @@ def Parse_text():
         with open('neko.txt.mecab','w') as result:
             mecab = MeCab.Tagger()
             result.write(mecab.parse(fp.read()))
-        result.close()
-    fp.close()
+        
+    
 
 
 Parse_text()
@@ -121,22 +121,24 @@ sentences = []
 
 
 with open('neko.txt.mecab','r') as nekomecab:
-    for morpheme in nekomecab.readlines():
+    for morpheme in nekomecab.read().split('\n'):
         surface = morpheme.split('\t')
-        if len(surface) >= 2:
+        if len(surface) == 2:
             result = surface[1].split(',')
-            print (surface[0])
             word = {
                 'surface' : surface[0],
                 'base' : result[6],
                 'pos' : result[0],
-                'pos1' : result[1]
+                'pos1': result[1]
             }
             sentence.append(word)
-            if (word['pos1'] == '句点'):
+            if word['pos1'] == '句点':
                 sentences.append(sentence)
                 sentence = []
-nekomecab.close()
+            elif len(surface) == 1:
+                pass
+            else: RuntimeError
+
 
 
 result = []
@@ -150,7 +152,7 @@ for sentence in sentences:
   #  print(m) 
 '''
 
-
+'''
 # Extract noun 33 サ変名詞
 import MeCab
 import sys
@@ -160,7 +162,46 @@ def Parse_file():
     with open('neko.txt','r') as fp:
         with open('neko.txt.mecab','w') as fp1:
             mecab = MeCab.Tagger()
-            result.write(mecab.parse(fp.read()))
-        fp1.close()
-    fp.close()
+            fp1.write(mecab.parse(fp.read()))
+        
     
+
+Parse_file()
+sentence = []
+sentences = []
+
+with open('neko.txt.mecab','r') as nekomecab:
+    for morpheme in nekomecab.read().split('\n'):
+        surface = morpheme.split('\t')
+        if len(surface) == 2:
+            result = surface[1].split(',')
+            word = {
+                'surface' : surface[0],
+                'base' : result[6],
+                'pos' : result[0],
+                'pos1': result[1]
+            }
+            sentence.append(word)
+            if word['pos1'] == '句点':
+                sentences.append(sentence)
+                sentence = []
+            elif len(surface) == 1:
+                pass
+            else: RuntimeError
+
+
+
+
+result = []
+
+for sentence in sentences:
+    for morpheme in sentence:
+        if morpheme['base'] != '*':
+            if morpheme['pos'] == '名詞' and morpheme['pos1'] == 'サ変接続':
+                result.append(morpheme['base'])
+
+for m in result:
+    print(m)
+'''
+
+
