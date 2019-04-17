@@ -100,6 +100,7 @@ for m in result:
     print(m)
 '''
 
+'''
 #Extract Verb prototype 32 動詞の原形
 
 import MeCab
@@ -147,8 +148,19 @@ for sentence in sentences:
 
 #for m in result:
   #  print(m) 
+'''
 
 
 # Extract noun 33 サ変名詞
 import MeCab
 import sys
+
+
+def Parse_file():
+    with open('neko.txt','r') as fp:
+        with open('neko.txt.mecab','w') as fp1:
+            mecab = MeCab.Tagger()
+            result.write(mecab.parse(fp.read()))
+        fp1.close()
+    fp.close()
+    
