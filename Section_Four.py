@@ -32,10 +32,10 @@ with open('neko.txt.mecab','r') as nekomecab:
             #use , to change
             result = surface[1].split(',')
             word = {
-                'surface' : surface[0],#kinds of word
+                'surface' : surface[0],
                 'base' : result[6],#prototype
-                'pos' : result[0],
-                'pos1' : result[1]
+                'pos' : result[0],#kinds of word
+                'pos1' : result[1]#punctuation
             } 
             sectence.append(word)
             
@@ -102,3 +102,48 @@ for m in result:
 
 #Extract Verb prototype 32 動詞の原形
 
+import MeCab
+import sys
+
+def Parse_text():
+    with open('neko.txt','r') as fp:
+        with open('neko.txt.mecab','w') as result:
+            mecab = MeCab.Tagger()
+            result.write(mecab.parse(fp.read()))
+        result.close()
+    fp.close()
+
+
+Parse_text()
+sentence = []
+sentences = []
+
+
+with open('neko.txt.mecab','r') as nekomecab:
+    for morpheme in nekomecab.readlines():
+        surface = morpheme.split('\t')
+        if len(surface) >= 2:
+            result = surface[1].split(',')
+            print (surface[0])
+            word = {
+                'surface' : surface[0],
+                'base' : result[6],
+                'pos' : result[0],
+                'pos1' : result[1]
+            }
+            sentence.append(word)
+            if (word['pos1'] == '句点'):
+                sentences.append(sentence)
+                sentence = []
+nekomecab.close()
+
+
+result = []
+
+for sentence in sentences:
+    for morpheme in sentence:
+        if(morpheme['pos'] == '動詞'):
+            result.append(morpheme['base'])
+
+#for m in result:
+  #  print(m) 
