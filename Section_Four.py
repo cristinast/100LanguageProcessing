@@ -204,7 +204,7 @@ for m in result:
     print(m)
 '''
 
-
+'''
 #Extract noun and noun with の 34「AのB」
 import MeCab
 import sys
@@ -259,4 +259,11 @@ for sentence in sentences:
 
 for m in result:
     print(m)
+'''
+
+
+#Extract the longest of noun 35 名詞の連接
+import MeCab
+import sys
+
 
