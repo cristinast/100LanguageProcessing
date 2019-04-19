@@ -205,3 +205,58 @@ for m in result:
 '''
 
 
+#Extract noun and noun with の 34「AのB」
+import MeCab
+import sys
+
+
+
+def Parse_file():
+    with open('neko.txt','r') as fp:
+        with open('neko.txt.mecab','w') as fp1:
+            mecab = MeCab.Tagger()
+            fp1.write(mecab.parse(fp.read()))
+
+
+
+Parse_file()
+sentence  = []
+sentences = []
+
+with open('neko.txt.mecab','r') as nekomecab:
+    for morpheme in nekomecab.read().split('\n'):
+        surface = morpheme.split('\t')
+        if len(surface) == 2:
+            result = surface[1].split(',')
+            word = {
+                'surface': surface[0],
+                'base': result[6],
+                'pos': result[0],
+                'pos1': result[1]
+            }
+            sentence.append(word)
+            if word['pos1'] == '句点':
+                sentences.append(sentence)
+                sentence = []
+            elif len(surface) == 1:
+                pass
+            else:
+                RuntimeError
+
+
+
+#print(sentences)
+
+
+result = []
+
+
+for sentence in sentences:
+    for num in range(len(sentence)):
+        if sentence[num]['surface'] == 'の' and sentence[num-1]['pos'] == '名詞' and sentence[num+1]['pos'] == '名詞':
+            result.append(sentence[num-1]['surface']+'の'+sentence[num+1]['surface'])
+        
+
+for m in result:
+    print(m)
+
