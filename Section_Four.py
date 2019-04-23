@@ -261,7 +261,7 @@ for m in result:
     print(m)
 '''
 
-
+'''
 #Extract the longest of noun 35 名詞の連接
 import MeCab
 import sys
@@ -303,10 +303,69 @@ with open('neko.txt.mecab','r') as nekomecab:
 
 result = []
 
-for sentence in senteces:
+for sentence in sentences:
+    noun = []
     for morpheme in sentence:
+        if morpheme['pos'] == '名詞':
+            noun.append(morpheme['surface'])
+        else:
+            if len(noun) > 1:
+                result.append(''.join(noun))
+            noun = []
+    
+    if len(noun) > 1:
+        result.append(''.join(noun))
+    noun = []
         
-            
+for m in result:
+    print(m)  
+'''
+
+
+
+#Get the frequency of a word 単語の出現頻度
+
+import MeCab
+impor sys
+
+
+def Parse_file():
+    with open('neko.txt','r') as fp:
+        with open('neko.txt.mecab','w') as fp1:
+            mecab = MeCab.Tagger()
+            fp1.write(mecab.parse(fp.read()))
+
+
+Parse_file()
+sentence  = []
+sentences = []
+
+
+with open('neko.txt.mecab','r') as nekomecab:
+    for morpheme in nekomecab.read().split('\n'):
+        surface = morpheme.split('\t')
+        if len(surface) == 2:
+            result = surface.split(',')
+            word = {
+                'surface': surface[0]
+                'base': result[6]
+                'pos': result[0]
+                'pos1': result[1]
+            }
+            sentence.append(word)
+            if word['pos'] == '句点':
+                sentences.append(sentence)
+                sentence = []
+        elif len(surface) == 1:
+            pass
+        else:
+            RuntimeError
+
+
+for sentence in sentences:
+    
+        
+
             
         
 
