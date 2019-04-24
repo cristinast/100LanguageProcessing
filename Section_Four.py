@@ -322,11 +322,12 @@ for m in result:
 '''
 
 
-
+'''
 #Get the frequency of a word 単語の出現頻度
 
 import MeCab
-impor sys
+import sys
+import collections
 
 
 def Parse_file():
@@ -341,19 +342,20 @@ sentence  = []
 sentences = []
 
 
+
 with open('neko.txt.mecab','r') as nekomecab:
     for morpheme in nekomecab.read().split('\n'):
         surface = morpheme.split('\t')
         if len(surface) == 2:
-            result = surface.split(',')
+            result = surface[1].split(',')
             word = {
-                'surface': surface[0]
-                'base': result[6]
-                'pos': result[0]
+                'surface': surface[0],
+                'base': result[6],
+                'pos': result[0],
                 'pos1': result[1]
             }
             sentence.append(word)
-            if word['pos'] == '句点':
+            if word['pos1'] == '句点':
                 sentences.append(sentence)
                 sentence = []
         elif len(surface) == 1:
@@ -362,8 +364,18 @@ with open('neko.txt.mecab','r') as nekomecab:
             RuntimeError
 
 
+
+word_counter = collections.Counter()
+
 for sentence in sentences:
-    
+    word_counter.update([morpheme['surface'] for morpheme in sentence])
+
+
+result = word_counter.most_common()
+
+print(result)
+'''
+
         
 
             
