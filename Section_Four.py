@@ -376,6 +376,18 @@ result = word_counter.most_common()
 print(result)
 '''
 
+
+
+#Get the top 10 frequency of word 37 頻度上位10語
+import MeCab
+import sys
+import collections
+
+
+with open('neko.txt','r') as fp:
+    with open('neko.txt.mecab','w') as fp1:
+        
+
         
 
             
