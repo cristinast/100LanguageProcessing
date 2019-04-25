@@ -377,12 +377,13 @@ print(result)
 '''
 
 
-
+'''
 #Get the top 10 frequency of word 37 頻度上位10語
 import MeCab
 import sys
 import collections
-
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 
 
 def Parse_file():
@@ -399,7 +400,7 @@ sentence = []
 sentences = []
 
 
-with open('neko.txt.cab','r') as nekomecab:
+with open('neko.txt.mecab','r') as nekomecab:
     for morpheme in nekomecab.read().split('\n'):
         surface = morpheme.split('\t')
         if len(surface) == 2:
@@ -410,7 +411,43 @@ with open('neko.txt.cab','r') as nekomecab:
                 'pos': result[0],
                 'pos1': result[1]
             }
-    
+            sentence.append(word)
+            if word['pos1'] == '句点':
+                sentences.append(sentence)
+                sentence = []
+        elif len(surface) == 1:
+            pass
+        else:
+            RuntimeError
+
+
+word_counter = collections.Counter()
+
+for sentence in sentences:
+    word_counter.update(morpheme['surface'] for morpheme in sentence)
+
+Top_word = list(zip(*word_counter.most_common(10)))
+Word_name = Top_word[0]
+Word_number = Top_word[1]
+
+
+#get the picture
+
+fp = FontProperties(fname='/System/Library/Fonts/ヒラギノ明朝 ProN.ttc')
+plt.bar(range(0,10),Word_number,align='center',color = '#E58E9C')
+plt.xticks(range(0,10),Word_name,FontProperties = fp)
+plt.xlim(xmin = -1,xmax = 10)
+plt.title('頻度上位10語',FontProperties = fp)
+plt.xlabel('単語',FontProperties = fp)
+plt.ylabel('出現頻度',FontProperties = fp)
+plt.grid(axis='y')
+plt.show()
+
+'''
+
+
+
+#Get histogram picture 38 ヒストグラム
 
 
         
