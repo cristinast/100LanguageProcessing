@@ -448,6 +448,14 @@ plt.show()
 
 
 #Get histogram picture 38 ヒストグラム
+import MeCab
+import sys
+
+
+with open('neko.txt','r') as fp:
+    with open('neko.txt.mecab','w') as fp1:
+        mecab = MeCab.Tagger()
+        fp1.write(mecab.parse(fp.read()))
 
 
         
