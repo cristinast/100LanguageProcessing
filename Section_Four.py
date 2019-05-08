@@ -491,7 +491,7 @@ with open('neko.txt.mecab','r') as nekomecab:
 #count word
 word_counter = collections.Counter()
 for sentence in sentences:
-    word_counter.update([morpheme['surface'] for morpheme in sentence])
+    word_counter.update(morpheme['surface'] for morpheme in sentence)
 
 
 list_word = list(zip(*word_counter.most_common()))
@@ -515,7 +515,76 @@ plt.grid(axis='y')
 plt.show()
 
 '''
-            
+#Rule of Zipf 39 Zipfの法則
+import sys
+import MeCab
+import collections
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+
+def Parse_file(filename):
+    with open('neko.txt','r') as fp:
+        with open('neko.txt.mecab','w') as fp1:
+            mecab = MeCab.Tagger()
+            fp1.write(mecab.parse(fp.read()))
+
+def Map_Mecab(MecabFilename):
+    sentence = []
+    sentences = []
+    with open(MecabFilename,'r') as nekomecab:
+        for morpheme in nekomecab.read().split('\n'):
+            surface = morpheme.split('\t')
+            if len(surface) == 2:
+                result = surface[1].split(',')
+                word = {
+                    'surface' : surface[0],
+                    'base' : result[6],
+                    'pos' : result[0],
+                    'pos1' : result[1]
+                }
+                sentence.append(word)
+                if word['pos1'] == '句点':
+                    sentences.append(sentence)
+                    sentence = []
+            elif len(surface) == 1:
+                pass
+            else:
+                RuntimeError
+    return sentences
+
+analysisfile = Parse_file('neko.txt')
+Sentences = Map_Mecab('neko.txt.mecab')
+
+word_counter = collections.Counter()
+for sentence in Sentences:
+    word_counter.update(morpheme['surface'] for morpheme in sentence)
+
+list_word = list(zip(*word_counter.most_common()))
+#Word_name = list_word[0]
+#Word_number = list_word[1]
+
+fp =  FontProperties(fname='/System/Library/Fonts/ヒラギノ明朝 ProN.ttc')
+#plt.scatter(range(1,len(Word_number)+1),Word_number)
+plt.scatter(range(len(list_word[1])),list_word[1],color = '#E58E9C')
+
+#plt.xlim(1,len(Word_name)+1)
+#plt.ylim(1,Word_name)
+plt.xlim(1,len(list_word[0]))
+plt.ylim(1,list_word[1][0])
+
+#logarithmetics
+plt.xscale('log')
+plt.yscale('log')
+
+plt.title('Zipfの法則',FontProperties = fp)
+plt.xlabel('出現頻度順位',FontProperties = fp)
+plt.ylabel('出現頻度',FontProperties = fp)
+
+
+
+plt.grid(axis= 'y')
+plt.show()
+
         
 
 
