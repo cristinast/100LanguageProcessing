@@ -20,8 +20,8 @@ def Parse_text():
     
 
 Parse_text()
-sectence  = []
-sectences  = []
+sentence  = []
+sentences  = []
 with open('neko.txt.mecab','r') as nekomecab:
     for morpheme in nekomecab.read().split('\n'):
         surface = morpheme.split('\t')
@@ -42,10 +42,10 @@ with open('neko.txt.mecab','r') as nekomecab:
             else: RuntimeError
 
 
-for line in sectences:
+for line in sentences:
     print(line)
 
-#print(sectences)
+#print(sentences)
 '''
 
 '''
@@ -151,8 +151,8 @@ for sentence in sentences:
 #for m in result:
   #  print(m) 
 '''
-
 '''
+
 # Extract noun 33 サ変名詞
 import MeCab
 import sys
@@ -422,9 +422,9 @@ with open('neko.txt.mecab','r') as nekomecab:
 
 
 word_counter = collections.Counter()
-
 for sentence in sentences:
     word_counter.update(morpheme['surface'] for morpheme in sentence)
+
 
 Top_word = list(zip(*word_counter.most_common(10)))
 Word_name = Top_word[0]
@@ -445,21 +445,76 @@ plt.show()
 
 '''
 
-
-
+'''
 #Get histogram picture 38 ヒストグラム
 import MeCab
 import sys
+import collections
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 
 
-with open('neko.txt','r') as fp:
-    with open('neko.txt.mecab','w') as fp1:
-        mecab = MeCab.Tagger()
-        fp1.write(mecab.parse(fp.read()))
 
-
+def Parse_file():
+    with open('neko.txt','r') as fp:
+        with open('neko.txt.mecab','w') as fp1:
+            mecab = MeCab.Tagger()
+            fp1.write(mecab.parse(fp.read()))
         
 
+
+Parse_file()
+sentence = []
+sentences = []
+
+
+with open('neko.txt.mecab','r') as nekomecab:
+    for morpheme in nekomecab.read().split('\n'):
+        surface = morpheme.split('\t')
+        if len(surface) == 2:
+            result = surface[1].split(',')
+            word = {
+                'surface' : surface[0],
+                'base' : result[6],
+                'pos' : result[0],
+                'pos1' : result[1]
+            }
+            sentence.append(word)
+            if word['pos1'] == '句点':
+                sentences.append(sentence)
+                sentence = []
+        elif len(surface) == 1:
+            pass    
+        else:
+            RuntimeError
+
+#count word
+word_counter = collections.Counter()
+for sentence in sentences:
+    word_counter.update([morpheme['surface'] for morpheme in sentence])
+
+
+list_word = list(zip(*word_counter.most_common()))
+Word_number = list_word[1]
+
+#font for the picture. NO Garbled  
+fp = FontProperties(fname='/System/Library/Fonts/ヒラギノ明朝 ProN.ttc')
+#decide which range to do
+plt.hist(Word_number,bins = 30,range=(1,30),color = '#E58E9C')
+
+#remove 0 data
+plt.xlim(xmin = 1,xmax = 10)
+#label 
+plt.title('ヒストグラム',FontProperties = fp)
+plt.xlabel('出現頻度',FontProperties = fp)
+plt.ylabel('単語の種類数',FontProperties = fp)
+#get x gridding if axis = 'x' it will get y gridding. 
+#if we don't write it, it will get x+y by itself.
+plt.grid(axis='y')
+#show the picture
+plt.show()
+
+'''
             
         
 
