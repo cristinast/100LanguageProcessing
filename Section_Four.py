@@ -569,7 +569,9 @@ plt.scatter(range(len(list_word[1])),list_word[1],color = '#E58E9C')
 
 #plt.xlim(1,len(Word_name)+1)
 #plt.ylim(1,Word_name)
+#decide range of x coordinate axis
 plt.xlim(1,len(list_word[0]))
+#decide range of y coordinate axis
 plt.ylim(1,list_word[1][0])
 
 #logarithmetics
