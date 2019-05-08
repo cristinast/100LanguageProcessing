@@ -586,7 +586,3 @@ plt.ylabel('出現頻度',FontProperties = fp)
 
 plt.grid(axis= 'y')
 plt.show()
-
-        
-
-
