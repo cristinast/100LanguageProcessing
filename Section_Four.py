@@ -523,7 +523,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 def Parse_file(filename):
-    with open('neko.txt','r') as fp:
+    with open(filename,'r') as fp:
         with open('neko.txt.mecab','w') as fp1:
             mecab = MeCab.Tagger()
             fp1.write(mecab.parse(fp.read()))
