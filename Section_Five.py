@@ -47,6 +47,4 @@ with open('neko.txt.cabocha','r') as nekocabocha:
             pos1 = others[1]
             morpheme = Morpheme(surface,base,pos,pos1)
             sentence.append(morpheme)
-
-for m in sentences:
-    print(m)
+        
