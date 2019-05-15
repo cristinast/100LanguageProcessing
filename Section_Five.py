@@ -39,12 +39,14 @@ with open('neko.txt.cabocha','r') as nekocabocha:
         elif line[0] == '*':
             continue
         else:
-            surface,other = line.split()
+            other = line.split('\t')
             others = other[1].split(',')
+            surface = other[0]
             base = others[6]
             pos = others[0]
             pos1 = others[1]
             morpheme = Morpheme(surface,base,pos,pos1)
             sentence.append(morpheme)
 
-for m in sentencs
+for m in sentences:
+    print(m)
